@@ -1,0 +1,12 @@
+{
+  "name": "AthleticStore",
+  "displayName": "AthleticStore",
+  "expo": {
+    "name": "AthleticStore",
+    "slug": "AthleticStore",
+    "version": "1.0.0",
+    "assetBundlePatterns": [
+      "**/*"
+    ]
+  }
+}
