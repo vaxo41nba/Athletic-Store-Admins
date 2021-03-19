@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import * as firebase from 'firebase';
 import 'firebase/firestore';
 import {
@@ -9,11 +9,16 @@ import {
   TouchableOpacity,
   ImageBackground,
   Image,
+  RefreshControl,
 } from 'react-native';
 
 import CustomBackground from '../components/CustomBackground';
 import Shoe from '../screens/Shoe';
 import AddModal from '../components/AddModal';
+
+const wait = (timeout) => {
+  return new Promise((resolve) => setTimeout(resolve, timeout));
+};
 
 export default function Admin({ navigation }) {
   const dbh = firebase.firestore();
@@ -21,6 +26,12 @@ export default function Admin({ navigation }) {
 
   const [shoesObj, setShoesObj] = useState(null);
   const [addModalVisible, setAddModalVisible] = useState(false);
+  const [refreshing, setRefreshing] = useState(false);
+
+  const onRefresh = useCallback(() => {
+    setRefreshing(true);
+    wait(2000).then(() => setRefreshing(false));
+  }, []);
 
   const getShoes = async () => {
     let obj = {};
@@ -61,7 +72,15 @@ export default function Admin({ navigation }) {
         </TouchableOpacity>
       </View>
 
-      <ScrollView contentContainerStyle={styles.block}>
+      <ScrollView
+        contentContainerStyle={styles.block}
+        keyboardShouldPersistTaps='always'
+      >
+        {/* <RefreshControl
+          refreshing={true}
+          onRefresh={onRefresh}
+          colors={['white']}
+        /> */}
         {shoesObj &&
           Object.keys(shoesObj).map((id) => (
             <Shoe key={id} id={id} shoe={shoesObj[id]} />

@@ -7,6 +7,11 @@
     "version": "1.0.0",
     "assetBundlePatterns": [
       "**/*"
-    ]
+    ],
+    "description": "",
+    "githubUrl": "https://github.com/vaxo41nba/Athletic-Store-Admins",
+    "android": {
+      "package": "com.vaxo_nba.Athletic"
+    }
   }
 }
