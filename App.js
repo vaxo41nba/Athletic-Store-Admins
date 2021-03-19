@@ -1,21 +1,14 @@
-import { StatusBar } from 'expo-status-bar';
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import * as firebase from 'firebase';
+import { LogBox } from 'react-native';
+
+import Navigator from './src/navigation';
+import ApiKeys from './src/constants/ApiKeys';
 
 export default function App() {
-  return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
-  );
+  LogBox.ignoreLogs(['Setting a timer']);
+  if (!firebase.apps.length) {
+    firebase.initializeApp(ApiKeys.FireBaseConfig);
+  }
+  return <Navigator />;
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
